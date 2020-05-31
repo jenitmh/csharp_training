@@ -9,18 +9,26 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            app.Navigator.GoToHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-            app.Contacts.InitContactCreation();
             ContactData contact = new ContactData("Иван", "Иванов")
             {
                 Middlename = "Иванович",
                 Nickname = ""
             };
-            app.Contacts.FillContactForm(contact);
-            app.Contacts.SubmitContactCreation();
-            app.Navigator.ReturnToHomePage();
+            app.Contacts.Create(contact);
             app.Auth.Logout();
         }
+
+        [Test]
+        public void EmptyContactCreationTest()
+        {
+            ContactData contact = new ContactData("", "")
+            {
+                Middlename = "",
+                Nickname = ""
+            };
+            app.Contacts.Create(contact);
+            app.Auth.Logout();
+        }
+
     }
 }
