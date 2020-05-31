@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
