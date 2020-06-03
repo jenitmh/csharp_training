@@ -31,16 +31,16 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Remove(int index)
+        public ContactHelper Remove()
         {
-            SelectContact(index);
+            SelectContact();
             RemoveContact();
             return this;
         }
 
-        public ContactHelper SelectContact(int index)
+        public ContactHelper SelectContact()
         {
-            driver.FindElement(By.Id("" + index + "")).Click();
+            driver.FindElement(By.Name("selected[]")).Click();
             return this;
         }
 
