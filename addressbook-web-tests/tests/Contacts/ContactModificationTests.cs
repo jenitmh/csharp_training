@@ -10,8 +10,8 @@ namespace WebAddressbookTests
         {
             ContactData newData = new ContactData("Ivan", "Ivanov")
             {
-                Middlename = "Ivanovich",
-                Nickname = ""
+                Middlename = null,
+                Nickname = null
             };
             app.Contacts.Modify(1, newData);
             app.Auth.Logout();

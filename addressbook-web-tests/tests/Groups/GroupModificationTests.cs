@@ -10,8 +10,8 @@ namespace WebAddressbookTests
         {
             GroupData newData = new GroupData("Group Modifided")
             {
-                Header = "12345",
-                Footer = "67890"
+                Header = null,
+                Footer = null
             };
             app.Groups.Modify(1, newData);
             app.Auth.Logout();
