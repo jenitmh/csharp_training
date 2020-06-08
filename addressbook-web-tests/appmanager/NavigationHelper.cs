@@ -10,7 +10,7 @@ namespace WebAddressbookTests
 {
     public class NavigationHelper : HelperBase
     {
-        private readonly string baseURL;
+        public readonly string baseURL;
 
         public NavigationHelper(ApplicationManager manager, string baseURL) : base(manager)
         {

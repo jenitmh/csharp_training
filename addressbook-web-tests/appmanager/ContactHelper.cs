@@ -24,6 +24,9 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(int index, ContactData newData)
         {
+            manager.Navigator.GoToHomePage();
+            ContactCheck();
+
             InitContactModification(index);
             FillContactForm(newData);
             SubmitContactModification();
@@ -33,8 +36,21 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove()
         {
+            manager.Navigator.GoToHomePage();
+            ContactCheck();
+
             SelectContact();
             RemoveContact();
+            return this;
+        }
+
+        public ContactHelper ContactCheck()
+        {
+            if (driver.Url == manager.Navigator.baseURL && !IsElementPresent(By.Name("selected[]")))
+            {
+                ContactData contact = new ContactData("Name", "Lastname");
+                Create(contact);
+            }
             return this;
         }
 

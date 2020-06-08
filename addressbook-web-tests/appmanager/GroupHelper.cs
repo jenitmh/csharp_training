@@ -29,6 +29,7 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int index, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
+            GroupCheck();
 
             SelectGroup(index);
             InitGroupModification();
@@ -41,10 +42,21 @@ namespace WebAddressbookTests
         public GroupHelper Remove(int index)
         {
             manager.Navigator.GoToGroupsPage();
+            GroupCheck();
 
             SelectGroup(index);
             RemoveGroup();
             ReturnToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper GroupCheck()
+        {
+            if (driver.Url == manager.Navigator.baseURL + "group.php" && !IsElementPresent(By.Name("selected[]")))
+            {
+                GroupData group = new GroupData("NewGroup");
+                Create(group);
+            }
             return this;
         }
 
