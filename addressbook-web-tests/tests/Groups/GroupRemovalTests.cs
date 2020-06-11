@@ -9,6 +9,7 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
+            app.Groups.GroupCheck();
             app.Groups.Remove(1);
             app.Auth.Logout();
         }

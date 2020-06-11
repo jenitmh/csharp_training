@@ -18,6 +18,8 @@ namespace WebAddressbookTests
                 Middlename = null,
                 Nickname = null
             };
+
+            app.Contacts.ContactCheck();
             app.Contacts.Modify(1, newData);
             app.Auth.Logout();
         }

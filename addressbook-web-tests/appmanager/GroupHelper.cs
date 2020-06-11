@@ -29,7 +29,6 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int index, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
-            GroupCheck();
 
             SelectGroup(index);
             InitGroupModification();
@@ -42,7 +41,6 @@ namespace WebAddressbookTests
         public GroupHelper Remove(int index)
         {
             manager.Navigator.GoToGroupsPage();
-            GroupCheck();
 
             SelectGroup(index);
             RemoveGroup();
