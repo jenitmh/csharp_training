@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -14,7 +15,17 @@ namespace WebAddressbookTests
                 Middlename = "Иванович",
                 Nickname = ""
             };
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
             app.Contacts.Create(contact);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
             app.Auth.Logout();
         }
 
@@ -26,9 +37,40 @@ namespace WebAddressbookTests
                 Middlename = "",
                 Nickname = ""
             };
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
             app.Contacts.Create(contact);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
             app.Auth.Logout();
         }
 
+        [Test]
+        public void BadNameContactCreationTest()
+        {
+            ContactData contact = new ContactData("M'", "")
+            {
+                Middlename = "",
+                Nickname = ""
+            };
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
+            app.Contacts.Create(contact);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
+            app.Auth.Logout();
+        }
     }
 }

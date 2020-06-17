@@ -1,9 +1,6 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
-using System;
+﻿using System;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -18,9 +15,19 @@ namespace WebAddressbookTests
                 Middlename = null,
                 Nickname = null
             };
-
             app.Contacts.ContactCheck();
-            app.Contacts.Modify(1, newData);
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
+            app.Contacts.Modify(0, newData);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts[0].Firstname = newData.Firstname;
+            oldContacts[0].Lastname = newData.Lastname;
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
             app.Auth.Logout();
         }
     }
