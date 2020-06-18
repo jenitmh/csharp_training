@@ -15,6 +15,8 @@ namespace WebAddressbookTests
 
         public string Footer { get; set; } = "";
 
+        public string Id { get; set; }
+
         public int CompareTo(GroupData other)
         {
             if (other is null)

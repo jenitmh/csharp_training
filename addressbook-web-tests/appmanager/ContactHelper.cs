@@ -1,9 +1,5 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using OpenQA.Selenium;
 
 namespace WebAddressbookTests
 {
@@ -83,12 +79,14 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactCache = null;
             return this;
         }
 
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -102,21 +100,31 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
+            contactCache = null;
             return this;
         }
 
+        private List<ContactData> contactCache = null;
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
-                contacts.Add(new ContactData(cells[2].Text, cells[1].Text));
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+
+                foreach (IWebElement element in elements)
+                {
+                    IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                    contactCache.Add(new ContactData(cells[2].Text, cells[1].Text)
+                    { 
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+                }
             }
-            return contacts;
+
+            return new List<ContactData>(contactCache);
         }
     }
 }

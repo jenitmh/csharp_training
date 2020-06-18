@@ -1,12 +1,12 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
     [TestFixture]
     public class ContactModificationTests : AuthTestBase
     {
+        
         [Test]
         public void ContactModificationTest()
         {
@@ -18,6 +18,7 @@ namespace WebAddressbookTests
             app.Contacts.ContactCheck();
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
+            ContactData oldData = oldContacts[0];
 
             app.Contacts.Modify(0, newData);
 
@@ -27,6 +28,14 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData contact in newContacts)
+            {
+                if (contact.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Firstname + newData.Lastname, contact.Firstname + contact.Lastname);
+                }
+            }
 
             app.Auth.Logout();
         }
