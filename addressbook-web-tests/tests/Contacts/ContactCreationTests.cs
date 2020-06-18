@@ -10,9 +10,9 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            ContactData contact = new ContactData("Иван", "Иванов")
+            ContactData contact = new ContactData("Juha", "Rintanen")
             {
-                Middlename = "Иванович",
+                Middlename = "Finjector",
                 Nickname = ""
             };
 
