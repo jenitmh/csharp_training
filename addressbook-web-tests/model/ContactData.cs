@@ -6,6 +6,7 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allEmail;
+        private string allData;
 
         public ContactData(string firstname, string lastname)
         {
@@ -77,13 +78,61 @@ namespace WebAddressbookTests
             }
         }
 
+        public string AllData
+        {
+            get
+            {
+                if (allData != null)
+                {
+                    return CleanUpData(allData);
+                }
+                else
+                {
+                    return CleanUpData(Firstname)
+                        + CleanUpData(Lastname)
+                        + CleanUpData(Address)
+                        + CleanUpData(HomePhone)
+                        + CleanUpData(MobilePhone)
+                        + CleanUpData(WorkPhone)
+                        + CleanUpData(Email1)
+                        + CleanUpData(Email2)
+                        + CleanUpData(Email3).Trim();
+                }
+            }
+            set
+            {
+                allData = value;
+            }
+        }
+
+        public string CleanUpData(string arg)
+        {
+            if (arg == null || arg == "")
+            {
+                return "";
+            }
+            return arg.Replace(" ", "")
+                .Replace("-", "")
+                .Replace("(", "")
+                .Replace(")", "")
+                .Replace("H:", "")
+                .Replace("M:", "")
+                .Replace("W:", "")
+                .Replace("\r", "")
+                .Replace("\n", "");
+        }
+
         public string CleanUp(string phone)
         {
             if (phone == null || phone == "")
             {
                 return "";
             }
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            return phone.Replace(" ", "")
+                .Replace("-", "")
+                .Replace("(", "")
+                .Replace(")", "")
+                + "\r\n";
         }
 
         public int CompareTo(ContactData other)

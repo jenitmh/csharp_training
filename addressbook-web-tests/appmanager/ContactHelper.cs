@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using OpenQA.Selenium;
 
 namespace WebAddressbookTests
@@ -18,6 +17,18 @@ namespace WebAddressbookTests
             SubmitContactCreation();
             ReturnToHomePage();
             return this;
+        }
+
+        public ContactData GetContactInformationFromContactPage(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
+            string allData = driver.FindElement(By.Id("content")).Text;
+
+            return new ContactData(null, null)
+            {
+                AllData = allData
+            };
         }
 
         public ContactData GetContactInformationFromEditForm(int index)
