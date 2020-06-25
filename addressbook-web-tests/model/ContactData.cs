@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -111,15 +112,7 @@ namespace WebAddressbookTests
             {
                 return "";
             }
-            return arg.Replace(" ", "")
-                .Replace("-", "")
-                .Replace("(", "")
-                .Replace(")", "")
-                .Replace("H:", "")
-                .Replace("M:", "")
-                .Replace("W:", "")
-                .Replace("\r", "")
-                .Replace("\n", "");
+            return Regex.Replace(arg, @"[ -()HMW:\n\r]", "");
         }
 
         public string CleanUp(string phone)
@@ -128,11 +121,7 @@ namespace WebAddressbookTests
             {
                 return "";
             }
-            return phone.Replace(" ", "")
-                .Replace("-", "")
-                .Replace("(", "")
-                .Replace(")", "")
-                + "\r\n";
+            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
         }
 
         public int CompareTo(ContactData other)
