@@ -158,7 +158,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "Firstname = " + Firstname + " Lastname = " + Lastname;
+            return "Firstname = " + Firstname + "\nLastname = " + Lastname;
         }
     }
 }
