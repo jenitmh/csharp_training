@@ -4,6 +4,10 @@ namespace WebAddressbookTests
 {
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
+        public GroupData()
+        {
+        }
+
         public GroupData(string name)
         {
             Name = name;
@@ -46,7 +50,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "name = " + Name + "\nheader =" + Header + "\nfooter = " + Footer;
+            return "\nname = " + Name + "\nheader = " + Header + "\nfooter = " + Footer;
         }
     }
 }

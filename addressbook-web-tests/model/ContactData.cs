@@ -9,6 +9,10 @@ namespace WebAddressbookTests
         private string allEmail;
         private string allData;
 
+        public ContactData()
+        {
+        }
+        
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
@@ -70,7 +74,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return Email1 + "\r\n" + Email2 + "\r\n" + Email3.Trim();
+                    return CleanUp(Email1) + CleanUp(Email2) + CleanUp(Email3).Trim();
                 }
             }
             set
@@ -158,7 +162,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "Firstname = " + Firstname + "\nLastname = " + Lastname;
+            return "\nFirstname = " + Firstname + "\nLastname = " + Lastname;
         }
     }
 }
