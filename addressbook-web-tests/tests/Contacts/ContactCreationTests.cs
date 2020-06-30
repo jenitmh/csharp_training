@@ -9,7 +9,7 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactCreationTests : AuthTestBase
     {
-        public static IEnumerable<ContactData> RandomContactDataProvider()
+        public static IEnumerable<ContactData> RandomContactsDataProvider()
         {
             List<ContactData> contacts = new List<ContactData>();
             for (int i = 0; i < 5; i++)
@@ -25,7 +25,7 @@ namespace WebAddressbookTests
         public static IEnumerable<ContactData> ContactDataFromCsvFile()
         {
             List<ContactData> contacts = new List<ContactData>();
-            string[] lines = File.ReadAllLines(@"data.csv");
+            string[] lines = File.ReadAllLines(@"contacts.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
@@ -39,12 +39,12 @@ namespace WebAddressbookTests
 
         public static IEnumerable<ContactData> ContactDataFromXmlFile()
         {
-            return (List<ContactData>)new XmlSerializer(typeof(List<ContactData>)).Deserialize(new StreamReader(@"data.xml"));
+            return (List<ContactData>)new XmlSerializer(typeof(List<ContactData>)).Deserialize(new StreamReader(@"contacts.xml"));
         }
 
         public static IEnumerable<ContactData> ContactDataFromJsonFile()
         {
-            return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"data.json"));
+            return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"contacts.json"));
         }
 
 

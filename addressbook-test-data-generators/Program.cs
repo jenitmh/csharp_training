@@ -20,7 +20,7 @@ namespace addressbook_test_data_generators
             string format = args[2];
             string type = args[3];
 
-            if (type == "groups")
+            if (type == "g")
             {
                 List<GroupData> groups = new List<GroupData>();
                 for (int i = 0; i < count; i++)
@@ -48,7 +48,7 @@ namespace addressbook_test_data_generators
                     Console.Out.Write("Unrecognized format " + format);
                 }
             }
-            else if (type == "contacts")
+            else if (type == "c")
             {
                 List<ContactData> contacts = new List<ContactData>();
                 for (int i = 0; i < count; i++)
