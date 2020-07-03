@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : GroupTestBase
     {
         public static IEnumerable<ContactData> RandomContactsDataProvider()
         {
@@ -47,21 +48,18 @@ namespace WebAddressbookTests
             return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"contacts.json"));
         }
 
-
         [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(ContactData contact)
         {
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
 
             app.Contacts.Create(contact);
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
-
-            app.Auth.Logout();
         }
 
         [Test]
@@ -82,8 +80,20 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+        }
 
-            app.Auth.Logout();
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            app.Contacts.GetContactList();
+            DateTime end = DateTime.Now;
+            Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            ContactData.GetAll();
+            end = DateTime.Now;
+            Console.Out.WriteLine(end.Subtract(start));
         }
     }
 }

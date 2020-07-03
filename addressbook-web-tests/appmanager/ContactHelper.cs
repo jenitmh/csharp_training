@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OpenQA.Selenium;
 
 namespace WebAddressbookTests
@@ -98,6 +99,15 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Remove(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+
+            SelectContact(contact.Id);
+            RemoveContact();
+            return this;
+        }
+
         public ContactHelper ContactCheck()
         {
             if (driver.Url == manager.Navigator.baseURL && !IsElementPresent(By.Name("selected[]")))
@@ -111,6 +121,12 @@ namespace WebAddressbookTests
         public ContactHelper SelectContact()
         {
             driver.FindElement(By.Name("selected[]")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.Id("" + id + "")).Click();
             return this;
         }
 

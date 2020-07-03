@@ -4,9 +4,8 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupModificationTests : AuthTestBase
+    public class GroupModificationTests : GroupTestBase
     {
-        
         [Test]
         public void GroupModificationTest()
         {
@@ -17,13 +16,13 @@ namespace WebAddressbookTests
             };
             app.Groups.GroupCheck();
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             GroupData oldData = oldGroups[0];
 
-            app.Groups.Modify(0, newData);
+            app.Groups.Modify(oldData, newData);
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups[0].Name = newData.Name;
+            List<GroupData> newGroups = GroupData.GetAll();
+            oldData.Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
@@ -35,8 +34,6 @@ namespace WebAddressbookTests
                     Assert.AreEqual(newData.Name, group.Name);
                 }
             }
-
-            app.Auth.Logout();
         }
     }
 }
