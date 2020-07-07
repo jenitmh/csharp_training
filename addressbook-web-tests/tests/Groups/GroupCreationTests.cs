@@ -87,15 +87,10 @@ namespace WebAddressbookTests
         [Test]
         public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
-            app.Groups.GetGroupList();
-            DateTime end = DateTime.Now;
-            Console.Out.WriteLine(end.Subtract(start));
-
-            start = DateTime.Now;
-            GroupData.GetAll();
-            end = DateTime.Now;
-            Console.Out.WriteLine(end.Subtract(start));
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                Console.Out.WriteLine(contact);
+            }
         }
     }
 }

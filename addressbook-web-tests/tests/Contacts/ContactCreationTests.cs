@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : GroupTestBase
+    public class ContactCreationTests : ContactTestBase
     {
         public static IEnumerable<ContactData> RandomContactsDataProvider()
         {
@@ -85,15 +85,10 @@ namespace WebAddressbookTests
         [Test]
         public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
-            app.Contacts.GetContactList();
-            DateTime end = DateTime.Now;
-            Console.Out.WriteLine(end.Subtract(start));
-
-            start = DateTime.Now;
-            ContactData.GetAll();
-            end = DateTime.Now;
-            Console.Out.WriteLine(end.Subtract(start));
+            foreach (ContactData contact in ContactData.GetAll())
+            {
+                Console.Out.WriteLine(contact.Deprecated);
+            }
         }
     }
 }
