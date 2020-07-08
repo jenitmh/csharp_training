@@ -69,6 +69,9 @@ namespace WebAddressbookTests
         [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
+
         public List<ContactData> GetContacts()
         {
             using (AddressBookDB db = new AddressBookDB())

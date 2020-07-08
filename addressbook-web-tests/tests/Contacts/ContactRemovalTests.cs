@@ -16,7 +16,6 @@ namespace WebAddressbookTests
 
             app.Contacts.Remove(toBeRemoved);
 
-            app.Navigator.GoToHomePage(); // Добавлен переход на главную страницу после удаления контакта, иначе контакт не успевает удалиться до записи значения в newContacts
             List<ContactData> newContacts = ContactData.GetAll();
             oldContacts.RemoveAt(0);
             Assert.AreEqual(oldContacts, newContacts);
