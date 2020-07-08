@@ -36,6 +36,23 @@ namespace WebAddressbookTests
             };
         }
 
+        public void CheckContactOutOfGroup()
+        {
+            ContactData c = new ContactData(TestBase.GenerateRandomString(5), TestBase.GenerateRandomString(5));
+
+            ContactData contact = ContactData.GetAll()[0];
+            List<GroupData> groupsList = GroupData.GetAll();
+            List<GroupData> contactGroupsList = contact.GetGroups();
+
+            groupsList.Sort();
+            contactGroupsList.Sort();
+
+            if (groupsList.SequenceEqual(contactGroupsList))
+            {
+                Create(c);
+            }
+        }
+
         public void ClearGroupFilter()
         {
             new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
@@ -53,6 +70,7 @@ namespace WebAddressbookTests
 
         public ContactHelper ContactCheck()
         {
+            manager.Navigator.GoToHomePage();
             if (driver.Url == manager.Navigator.baseURL && !IsElementPresent(By.Name("selected[]")))
             {
                 ContactData contact = new ContactData("Name", "Lastname");
